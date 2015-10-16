@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) NSMutableArray *chatArray;
+@property (nonatomic, strong) UILabel *label;
 
 @end
 
@@ -53,14 +54,25 @@
             for(PFObject *object in objects) {
                 [self.chatArray addObject:[object objectForKey:@"text"]];
             }
+            
+            [self createLabel:self.chatArray];
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-    NSLog(@"%@", self.chatArray);
-    NSLog(@"%@", [self.chatArray componentsJoinedByString:@"\n"]);
     
+}
+
+- (void)createLabel:(NSMutableArray *)textArray {
+    
+    self.label = [[UILabel alloc] init];
+    self.label.text = [textArray componentsJoinedByString:@"\n"];
+    self.label.numberOfLines = 0;
+    self.label.frame = CGRectMake(20, 150, self.view.frame.size.width - 20, self.view.frame.size.height/2);
+    [self.label sizeToFit];
+    
+    [self.view addSubview:self.label];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -77,6 +89,8 @@
     self.textField.text = nil;
     [self.textField resignFirstResponder];
     
+    [self viewDidLoad];
+    [self.label removeFromSuperview];
 }
 
 

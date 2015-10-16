@@ -1,11 +1,11 @@
-/**
- * Copyright (c) 2015-present, Parse, LLC.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
+//
+//  AppDelegate.h
+//  ParseStarterProject
+//
+//  Created by Krishna Bharathala on 10/16/15.
+//
+//
+
 
 #import <Foundation/Foundation.h>
 #import "ChatViewController.h"
@@ -15,7 +15,6 @@
 @interface ParseStarterProjectAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
-
 @property (nonatomic, strong) ChatViewController *chatViewController;
 
 @end
