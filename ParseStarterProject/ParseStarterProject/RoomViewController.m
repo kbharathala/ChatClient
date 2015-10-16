@@ -15,6 +15,14 @@
 
 @implementation RoomViewController
 
+-(void) viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -53,7 +61,7 @@
         ChatViewController *chatVC = [[ChatViewController alloc] init];
         chatVC.roomID = [[alertView textFieldAtIndex:0] text];
         
-        [self presentViewController:chatVC animated:YES completion:nil];
+        [self.navigationController pushViewController:chatVC animated:YES];
     }
 }
 

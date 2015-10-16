@@ -39,11 +39,13 @@
     
     self.roomViewController = [[RoomViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.roomViewController];
 
-    self.window.rootViewController = self.roomViewController;
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
 
-    /* if (application.applicationState != UIApplicationStateBackground) {
+    if (application.applicationState != UIApplicationStateBackground) {
         BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
         BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
         BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -51,8 +53,7 @@
             [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         }
     }
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                         UIUserNotificationTypeBadge |
@@ -61,14 +62,8 @@
                                                                                  categories:nil];
         [application registerUserNotificationSettings:settings];
         [application registerForRemoteNotifications];
-    } else
-#endif
-    {
-        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                         UIRemoteNotificationTypeAlert |
-                                                         UIRemoteNotificationTypeSound)];
-    } */
-
+    }
+    
     return YES;
 }
 
@@ -105,25 +100,10 @@
     }
 }
 
-///////////////////////////////////////////////////////////
-// Uncomment this method if you want to use Push Notifications with Background App Refresh
-///////////////////////////////////////////////////////////
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-//    if (application.applicationState == UIApplicationStateInactive) {
-//        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-//    }
-//}
-
-#pragma mark Facebook SDK Integration
-
-///////////////////////////////////////////////////////////
-// Uncomment this method if you are using Facebook
-///////////////////////////////////////////////////////////
-//- (BOOL)application:(UIApplication *)application
-//            openURL:(NSURL *)url
-//  sourceApplication:(NSString *)sourceApplication
-//         annotation:(id)annotation {
-//    return [PFFacebookUtils handleOpenURL:url];
-//}
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    if (application.applicationState == UIApplicationStateInactive) {
+        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    }
+}
 
 @end

@@ -25,11 +25,9 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-    navbar.topItem.title = [NSString stringWithFormat:@"Room %@", self.roomID];
-    [self.view addSubview:navbar];
+    self.navigationItem.title = [NSString stringWithFormat:@"Room: %@", self.roomID];
     
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 70, 300, 40)];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 80, 300, 40)];
     self.textField.borderStyle = UITextBorderStyleRoundedRect;
     self.textField.font = [UIFont systemFontOfSize:15];
     self.textField.placeholder = @"Enter Text";
@@ -44,7 +42,7 @@
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [submitButton setTitle:@"Submit Text" forState:UIControlStateNormal];
     [submitButton sizeToFit];
-    [submitButton setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/6 + 40)];
+    [submitButton setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/6 + 50)];
     [submitButton addTarget:self action:@selector(submitText) forControlEvents:UIControlEventTouchUpInside];
     [submitButton setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:submitButton];
@@ -74,7 +72,7 @@
     self.label = [[UILabel alloc] init];
     self.label.text = [textArray componentsJoinedByString:@"\n"];
     self.label.numberOfLines = 0;
-    self.label.frame = CGRectMake(20, 170, self.view.frame.size.width - 20, self.view.frame.size.height/2);
+    self.label.frame = CGRectMake(20, 180, self.view.frame.size.width - 20, self.view.frame.size.height/2);
     [self.label sizeToFit];
     
     [self.view addSubview:self.label];
