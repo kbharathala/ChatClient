@@ -5,5 +5,5 @@ README
 iOS Basic Chat Client With Parse
 
 - Multiple Rooms
-- Auto Refresh on Enter in Rooms
+- Auto Refresh in Rooms
 - Persisting Chats
