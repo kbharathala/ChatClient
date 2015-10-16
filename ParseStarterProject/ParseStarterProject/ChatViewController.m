@@ -25,7 +25,11 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 30, 300, 40)];
+    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    navbar.topItem.title = [NSString stringWithFormat:@"Room %@", self.roomID];
+    [self.view addSubview:navbar];
+    
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 70, 300, 40)];
     self.textField.borderStyle = UITextBorderStyleRoundedRect;
     self.textField.font = [UIFont systemFontOfSize:15];
     self.textField.placeholder = @"Enter Text";
@@ -40,7 +44,7 @@
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [submitButton setTitle:@"Submit Text" forState:UIControlStateNormal];
     [submitButton sizeToFit];
-    [submitButton setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/6)];
+    [submitButton setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/6 + 40)];
     [submitButton addTarget:self action:@selector(submitText) forControlEvents:UIControlEventTouchUpInside];
     [submitButton setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:submitButton];
@@ -48,6 +52,7 @@
     self.chatArray = [[NSMutableArray alloc] init];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Input"];
+    [query whereKey:@"room" equalTo:self.roomID];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSLog(@"No Error");
@@ -69,7 +74,7 @@
     self.label = [[UILabel alloc] init];
     self.label.text = [textArray componentsJoinedByString:@"\n"];
     self.label.numberOfLines = 0;
-    self.label.frame = CGRectMake(20, 150, self.view.frame.size.width - 20, self.view.frame.size.height/2);
+    self.label.frame = CGRectMake(20, 170, self.view.frame.size.width - 20, self.view.frame.size.height/2);
     [self.label sizeToFit];
     
     [self.view addSubview:self.label];
@@ -84,6 +89,7 @@
     
     PFObject *textInput = [PFObject objectWithClassName:@"Input"];
     textInput[@"text"] = self.textField.text;
+    textInput[@"room"] = self.roomID;
     [textInput saveInBackground];
     
     self.textField.text = nil;

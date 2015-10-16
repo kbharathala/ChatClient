@@ -10,4 +10,6 @@
 
 @interface ChatViewController : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) NSString *roomID;
+
 @end

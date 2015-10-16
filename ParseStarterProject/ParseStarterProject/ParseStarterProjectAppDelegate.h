@@ -8,13 +8,13 @@
 
 
 #import <Foundation/Foundation.h>
-#import "ChatViewController.h"
+#import "RoomViewController.h"
 
 @class ParseStarterProjectViewController;
 
 @interface ParseStarterProjectAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) ChatViewController *chatViewController;
+@property (nonatomic, strong) RoomViewController *roomViewController;
 
 @end

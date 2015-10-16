@@ -10,6 +10,7 @@
 
 #import "ParseStarterProjectAppDelegate.h"
 #import "ChatViewController.h"
+#import "RoomViewController.h"
 
 @implementation ParseStarterProjectAppDelegate
 
@@ -36,10 +37,10 @@
     PFACL *defaultACL = [PFACL ACL];
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
-    self.chatViewController = [[ChatViewController alloc] init];
+    self.roomViewController = [[RoomViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    self.window.rootViewController = self.chatViewController;
+    self.window.rootViewController = self.roomViewController;
     [self.window makeKeyAndVisible];
 
     /* if (application.applicationState != UIApplicationStateBackground) {
