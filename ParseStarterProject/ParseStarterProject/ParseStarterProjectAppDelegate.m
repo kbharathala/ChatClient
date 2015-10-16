@@ -15,11 +15,10 @@
 // If you are using Facebook, uncomment this line
 // #import <ParseFacebookUtils/PFFacebookUtils.h>
 
-// If you want to use Crash Reporting - uncomment this line
 // #import <ParseCrashReporting/ParseCrashReporting.h>
 
 #import "ParseStarterProjectAppDelegate.h"
-#import "ParseStarterProjectViewController.h"
+#import "ChatViewController.h"
 
 @implementation ParseStarterProjectAppDelegate
 
@@ -27,16 +26,14 @@
 #pragma mark UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Enable storing and querying data from Local Datastore. Remove this line if you don't want to
-    // use Local Datastore features or want to use cachePolicy.
+
     [Parse enableLocalDatastore];
 
     // ****************************************************************************
-    // Uncomment this line if you want to enable Crash Reporting
     // [ParseCrashReporting enable];
     //
     // Uncomment and fill in with your Parse credentials:
-    // [Parse setApplicationId:@"your_application_id" clientKey:@"your_client_key"];
+    [Parse setApplicationId:@"sTvAjNmqmOHzsoQy7eQCdHqjWxiFtvzDomwSBXwM" clientKey:@"EkcACQgKVlGPXDGIiBTshhuInrhiBsj4iZde7MYG"];
     //
     // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
     // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
@@ -46,21 +43,15 @@
     [PFUser enableAutomaticUser];
 
     PFACL *defaultACL = [PFACL ACL];
-
-    // If you would like all objects to be private by default, remove this line.
-    [defaultACL setPublicReadAccess:YES];
-
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
+    
+    self.chatViewController = [[ChatViewController alloc] init];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    // Override point for customization after application launch.
-
-    self.window.rootViewController = self.viewController;
+    self.window.rootViewController = self.chatViewController;
     [self.window makeKeyAndVisible];
 
-    if (application.applicationState != UIApplicationStateBackground) {
-        // Track an app open here if we launch with a push, unless
-        // "content_available" was used to trigger a background push (introduced in iOS 7).
-        // In that case, we skip tracking here to avoid double counting the app-open.
+    /* if (application.applicationState != UIApplicationStateBackground) {
         BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
         BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
         BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -84,7 +75,7 @@
         [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
                                                          UIRemoteNotificationTypeAlert |
                                                          UIRemoteNotificationTypeSound)];
-    }
+    } */
 
     return YES;
 }
